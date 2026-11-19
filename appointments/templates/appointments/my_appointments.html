@@ -1,0 +1,17 @@
+{% extends 'appointments/base.html' %}
+{% block title %} My Appointments {% endblock %}
+{% block content %}
+<h1>My Appointments</h1>
+{% for appointment in appointments%}
+<h3>Doctor: {{ appointment.slot.doctor.name }}</h3>
+<p>Date: {{ appointment.slot.date }}</p>
+<p>Time: {{ appointment.slot.start_time }}</p>
+<p> Status: {{ appointment.status }}</p>
+<p> Reason: {{ appointment.reason }}</p>
+<p> <a href="{% url 'edit_appointment' appointment.id %}">Edit</a> | <a href="{% url 'cancel_appointment' appointment.id %}">Cancel</a></p>
+<hr>
+
+{% empty %}
+<p>No appointments found</p>
+{% endfor %}
+{% endblock %}

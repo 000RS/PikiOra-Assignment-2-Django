@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Pikiora Appointments{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <h1>Pikiora Medical Centre</h1>
+        <nav>
+            <a href="{% url 'home' %}">Home</a> |
+            <a href="{% url 'doctor_list' %}">Doctors</a> |
+            <a href="{% url 'available_slots' %}"> Available Slots</a>
+            {% if user.is_authenticated %}
+            <a href="{% url 'my_appointments' %}">My Appointments</a> |
+            {% if user.is_staff %}
+            <a href="{% url 'dashboard' %}"> Staff Dashboard</a>
+            {% endif %}
+            <span>
+               Welcome {{ user.username }}
+            </span> |
+
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit">Logout</button>
+            </form>
+            {% else %}
+            <a href="{% url 'register' %}">Register</a> |
+            <a href="{% url 'login' %}">Login</a>
+            {% endif %}
+        </nav>
+    </header>
+    <hr>
+
+    {% if messages %}
+
+        {% for message in messages %}
+
+           <p>  <strong> {{message}} </strong> </p>
+    {% endfor %}
+{% endif %}
+<main>
+    {% block content %}
+    {% endblock %}
+</main>
+
+
+    <hr>
+    <footer>
+        <p>&copy; 2026 Pikiora Medical Centre </p>
+    </footer>
+
+</body>
+</html>

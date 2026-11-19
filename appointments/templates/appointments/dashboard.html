@@ -1,0 +1,73 @@
+{% extends 'appointments/base.html' %}
+{% block title %} Dashboard {% endblock %}
+{% block content %}
+
+<h1>PikiaOra Medical Centre Dashboard</h1>
+<h2>Doctors</h2>
+
+<p>
+    <a href="{% url 'doctor_create' %}">Add Doctor</a>
+</p>
+{% for doctor in doctors %}
+    <p>{{ doctor.name }} - {{ doctor.specialization }}
+
+    <a href="{% url 'doctor_edit' doctor.id %}">Edit</a> |
+    <a href="{% url 'doctor_delete' doctor.id %}">Delete</a>
+</p>
+
+{% empty %}
+<p>No doctors available</p>
+{% endfor %}
+
+<h2>Appointment Slots</h2>
+
+<p>
+    <a href="{% url 'slot_create' %}">Add Appointment Slot</a>
+</p>
+
+{% for slot in slots %}
+    <p>
+        {{ slot.doctor.name }} |
+        {{ slot.date }} |
+        {{ slot.start_time }} - {{ slot.end_time }} |
+        Available: {{ slot.is_available }} |
+
+        <a href="{% url 'slot_edit' slot.id %}">Edit</a> |
+
+        <a href="{% url 'slot_delete' slot.id %}">Delete</a>
+    </p>
+{% empty %}
+    <p>No appointment slots have been added.</p>
+{% endfor %}
+
+<h2>Booking</h2>
+{% for appointment in appointments %}
+   <p>Patient:{{ appointment.patient.username }} |
+      Doctor:{{ appointment.slot.doctor.name }} |
+      Date: {{ appointment.slot.date }} |
+      Time: {{ appointment.slot.start_time }}
+      Status: {{ appointment.status }}
+
+       <a href="{% url 'staff_appointment_edit' appointment.id %}">Edit</a> |
+       <a href="{% url 'staff_appointment_cancel' appointment.id %}">Cancel</a>
+
+    </p>
+
+
+{% empty %}
+<p>No bookings found</p>
+{% endfor %}
+
+<h2>Patient Account</h2>
+<p>
+    <a href="{% url 'patient_list' %}">View Patient Accounts</a>
+</p>
+{% for patient in patients %}
+<p>{{ patient.username }} | Active {{ patient.is_active }} </p>
+{% empty %}
+<p>
+    No patients account found
+</p>
+
+{% endfor %}
+{% endblock %}

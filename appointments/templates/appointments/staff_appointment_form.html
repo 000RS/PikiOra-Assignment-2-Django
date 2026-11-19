@@ -1,0 +1,19 @@
+{% extends 'appointments/base.html' %}
+{% block title %} Edir Bokking {% endblock %}
+{% block content %}
+<h1> Edit Booking </h1>
+<p> Patient: {{ appointment.patient.username }}</p>
+<p> Doctor: {{ appointment.slot.doctor.name }}</p>
+<p> Date: {{ appointment.slot.date }}</p>
+<p> Time: {{ appointment.slot.start_time }}</p>
+
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Save Changes</button>
+</form>
+
+<p>
+  <a href="{% url 'dashboard' %}">Back to Dashboard</a>
+</p>
+{% endblock %}

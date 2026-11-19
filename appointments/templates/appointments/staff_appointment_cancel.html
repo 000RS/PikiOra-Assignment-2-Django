@@ -1,0 +1,20 @@
+{% extends 'appointments/base.html' %}
+{% block title %} Cancel Booking {% endblock %}
+{% block content %}
+<h1> Cancel Booking </h1>
+
+<p> Are you sure you want to cancel this bookingg?</p>
+<p> Patient: {{ appointment.patient.username }}</p>
+<p> Doctor: {{ appointment.slot.doctor.name }}</p>
+<p> Date: {{ appointment.slot.date }}</p>
+<p> Time: {{ appointment.slot.start_time }}</p>
+
+<form method="post">
+  {% csrf_token %}
+  <button type="submit">Yes, Cancel booking</button>
+</form>
+
+<p>
+  <a href="{% url 'my_appointments' %}">Keep Booking</a>
+</p>
+{% endblock %}

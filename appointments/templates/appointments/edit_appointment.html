@@ -1,0 +1,18 @@
+{% extends 'appointments/base.html' %}
+{% block title %} Edit Appointment {% endblock %}
+{% block content %}
+<h1> Edit Appointment </h1>
+<p> Doctor: {{ appointment.slot.doctor.name }}</p>
+<p> Date: {{ appointment.slot.date }}</p>
+<p> Time: {{ appointment.slot.start_time }} - {{ appointment.slot.end_time }}</p>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Save Changes</button>
+</form>
+
+<p>
+  <a href="{% url 'my_appointments' %}">Back to My Appointments</a>
+</p>
+{% endblock %}
+

@@ -1,0 +1,19 @@
+{% extends 'appointments/base.html' %}
+
+{% block title %} Doctor List {% endblock %}
+
+
+{% block content %}
+<h1>Available Doctors</h1>
+{% for doctor in doctors %}
+<h3>{{ doctor.name }}</h3>
+<p> Specialization: {{ doctor.specialization }}</p>
+<p> Email: {{ doctor.email }}</p>
+<p> Phone: {{ doctor.phone }}</p>
+  {% if doctor.bio %}
+    <p> Bio: {{ doctor.bio }}</p>
+  {% endif %}
+   <hr>
+{% endfor %}
+<p>No doctors are currently available</p>
+{% endblock %}

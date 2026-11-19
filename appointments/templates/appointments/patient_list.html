@@ -1,0 +1,32 @@
+{% extends 'appointments/base.html' %}
+
+{% block title %}
+Manage Patients
+{% endblock %}
+
+{% block content %}
+
+<h1> Manage Patients </h1>
+
+{% for patient in patients %}
+<p>Username: {{ patient.username }} </p>
+<p>Email: {{ patient.email}} </p>
+<p>Active: {{ patient.is_active }} </p>
+<form method="post", action="{% url 'patient_toggle_active' patient.id %}", style="display:inline">
+  {% csrf_token %}
+  {% if patient.is_active %}
+  <button type="submit">Disable Account</button>
+  {% else %}
+  <button type="submit">Activate Account</button>
+  {% endif %}
+</form>
+
+<hr>
+{% empty %}
+<p>No patients found</p>
+
+{% endfor %}
+<p>
+  <a href="{% url 'dashboard' %}">Back to Dashboard</a>
+</p>
+{% endblock %}
